@@ -14,7 +14,7 @@ st.set_page_config(
   layout='wide'
 )
 
-st.title("GTNH - Applied Energistics Items Track")
+st.title("GTNH 1 - Applied Energistics Items Track")
 
 # Refresh the page every 15 minutes (900,000 milliseconds)
 st_autorefresh(interval=900000, key="refresh_page")
