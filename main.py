@@ -35,7 +35,7 @@ items_filter = st.selectbox("Select the Item", distinct_items)
 
 # Connection with supabase
 rows = execute_query(conn.table(supabase_table).select("*"), ttl='1s')
-st.write(rows.date)
+st.write(rows.data)
 # Convert to DataFrame and Sort the table
 sort_table = pd.DataFrame.from_dict(rows.data).sort_values('datetime')
 st.dataframe(sort_table)
