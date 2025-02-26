@@ -16,8 +16,8 @@ st.set_page_config(
 
 st.title("GTNH 1 - Applied Energistics Items Track")
 
-# Refresh the page every 15 minutes (900,000 milliseconds)
-st_autorefresh(interval=900000, key="refresh_page")
+# Refresh the page every 5 minutes (300,000 milliseconds)
+st_autorefresh(interval=300000, key="refresh_page")
 
 # Supabase Table
 supabase_table = "gtnh-items"
@@ -35,7 +35,7 @@ items_filter = st.selectbox("Select the Item", distinct_items)
 
 # Connection with supabase
 rows = execute_query(conn.table(supabase_table).select("*"), ttl='1s')
-
+st.write(rows.date)
 # Convert to DataFrame and Sort the table
 sort_table = pd.DataFrame.from_dict(rows.data).sort_values('datetime')
 st.dataframe(sort_table)
