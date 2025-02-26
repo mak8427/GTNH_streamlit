@@ -26,12 +26,11 @@ supabase_table = "gtnh-items"
 conn = st.connection("supabase",type=SupabaseConnection)
 
 # Filter last items from the last 4 days
-filter = datetime.datetime.today() - datetime.timedelta(days=4)
+filter = datetime.datetime.today() - datetime.timedelta(days=365)
 
 # Get the list os items
 items = execute_query(conn.table(supabase_table).select("item").filter(("datetime"),"gt",filter), ttl='20m')
 items = pd.DataFrame.from_dict(items.data)
-print(items)
 distinct_items = items.item.unique()
 
 # Select Box to filter a item
@@ -39,6 +38,8 @@ items_filter = st.selectbox("Select the Item", distinct_items)
 
 # Connection with supabase
 rows = execute_query(conn.table(supabase_table).select("*").filter(("datetime"),"gt",filter), ttl='20m')
+
+
 
 # Convert to DataFrame and Sort the table
 sort_table = pd.DataFrame.from_dict(rows.data).sort_values('datetime')
