@@ -14,7 +14,7 @@ st.set_page_config(
   layout='wide'
 )
 
-st.title("GTNH 1 - Applied Energistics Items Track")
+st.title("GTNH - Applied Energistics Items Track")
 
 # Refresh the page every 5 minutes (300,000 milliseconds)
 st_autorefresh(interval=300000, key="refresh_page")
@@ -26,7 +26,7 @@ supabase_table = "gtnh-items"
 conn = st.connection("supabase",type=SupabaseConnection)
 
 # Get the list os items
-items = execute_query(conn.table(supabase_table).select("item"), ttl='30s')
+items = execute_query(conn.table(supabase_table).select("*"), ttl='30s')
 items = pd.DataFrame.from_dict(items.data)
 distinct_items = items.item.unique()
 
