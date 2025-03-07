@@ -22,23 +22,13 @@ st_autorefresh(interval=300000, key="refresh_page")
 # Supabase Table
 supabase_table = "gtnh-items"
 
-# Initialize connection.
-conn = st.connection("supabase",type=SupabaseConnection)
+sort_table  = pd.read_csv("/mnt/sdb/gtnh_ger/World/opencomputers/f93bf4e7-03b1-41e8-893e-d9033d3f97a9/home/GTNH_Lua_Applied/Export.csv")
 
-# Get the list os items
-items = execute_query(conn.table(supabase_table).select("items"), ttl='30s')
-items = pd.DataFrame.from_dict(items.data)
-distinct_items = items.item.unique()
-
+st.dataframe(sort_table)
 # Select Box to filter a item
 items_filter = st.selectbox("Select the Item", distinct_items)
 
-# Connection with supabase
-rows = execute_query(conn.table(supabase_table).select("*"), ttl='1s')
-st.write(rows.data)
-# Convert to DataFrame and Sort the table
-sort_table = pd.DataFrame.from_dict(rows.data).sort_values('datetime')
-st.dataframe(sort_table)
+
 # Chart for Item
 fig_col1, fig_col2 = st.columns([0.2, 0.8])
 with fig_col1:
