@@ -23,10 +23,10 @@ st_autorefresh(interval=300000, key="refresh_page")
 supabase_table = "gtnh-items"
 
 sort_table  = pd.read_csv("/mnt/sdb/gtnh_ger/World/opencomputers/f93bf4e7-03b1-41e8-893e-d9033d3f97a9/home/GTNH_Lua_Applied/Export.csv")
-
+print(sort_table)
 st.dataframe(sort_table)
 # Select Box to filter a item
-items_filter = st.selectbox("Select the Item", distinct_items)
+items_filter = st.selectbox("Select the Item", sort_table.loc[1] )
 
 
 # Chart for Item
