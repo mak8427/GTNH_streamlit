@@ -39,7 +39,7 @@ with fig_col1:
 
   st.markdown("#### Past 24-hour metrics")
 
-  item_track = sort_table.loc[sort_table['item'] == items_filter]
+  item_track = sort_table.loc[sort_table['Item'] == items_filter]
   item_track['datetime'] = pd.to_datetime(item_track["datetime"])
   now = pd.Timestamp.now(tz="America/Sao_Paulo")
   now = now.tz_localize(None)
