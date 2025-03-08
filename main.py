@@ -22,7 +22,10 @@ st_autorefresh(interval=300000, key="refresh_page")
 # Supabase Table
 supabase_table = "gtnh-items"
 
-sort_table  = pd.read_csv("/mnt/sdb/gtnh_ger/World/opencomputers/f93bf4e7-03b1-41e8-893e-d9033d3f97a9/home/GTNH_Lua_Applied/Export.csv")
+sort_table = pd.read_csv(
+  "/mnt/sdb/gtnh_ger/World/opencomputers/f93bf4e7-03b1-41e8-893e-d9033d3f97a9/home/GTNH_Lua_Applied/Export.csv",
+  on_bad_lines='warn'  # Warns about bad lines but doesn't crash
+)
 print(sort_table)
 st.dataframe(sort_table)
 # Select Box to filter a item
