@@ -62,7 +62,7 @@ with fig_col1:
   st.metric(label="Total Amount Produced", value="{:,}".format(kpi_change))
 
 with fig_col2:
-  fig1 = px.line(item_track, x='datetime', y='quantity', title='Quantity of: ' + items_filter)
+  fig1 = px.line(item_track, x='Date Time', y='Quantity', title='Quantity of: ' + items_filter)
   st.write(fig1, key='fig1')
 
 
