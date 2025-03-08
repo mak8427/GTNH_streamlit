@@ -38,12 +38,17 @@ items_filter = st.selectbox("Select the Item", sort_table["Item"].unique().tolis
 # Chart for Item
 fig_col1, fig_col2 = st.columns([0.2, 0.8])
 with fig_col1:
-  st.markdown("### "+items_filter)
-
+  st.markdown("### " + items_filter)
   st.markdown("#### Past 24-hour metrics")
 
+  # Filter for the selected item
   item_track = sort_table.loc[sort_table['Item'] == items_filter]
-  item_track['Date Time"'] = pd.to_datetime(item_track["Date Time"])
+
+  # Convert to datetime (and sort by date)
+  item_track['Date Time'] = pd.to_datetime(item_track["Date Time"]).dt.tz_localize("Europe/Rome")
+  item_track = item_track.sort_values(by='Date Time')
+
+  # Use a timezone-aware now
   now = pd.Timestamp.now(tz="Europe/Rome")
   last_24h = item_track[item_track["Date Time"] >= now - pd.Timedelta(days=1)]
 
@@ -51,19 +56,21 @@ with fig_col1:
     kpi_avg = 0
     kpi_change = 0
   else:
+    # Calculate the difference in Quantity in chronological order
     last_24h["real_production"] = last_24h["Quantity"].diff().fillna(0)
     total_production = last_24h["real_production"].sum()
     total_hours = (last_24h["Date Time"].max() - last_24h["Date Time"].min()).total_seconds() / 3600
     kpi_avg = (total_production / total_hours).round(0).astype(int)
+    kpi_change = total_production.round(0).astype(int)
 
-    kpi_change = total_production.round(0).astype(int) 
-  
   st.metric(label="Average Produced per Hour", value="{:,}".format(kpi_avg))
   st.metric(label="Total Amount Produced", value="{:,}".format(kpi_change))
 
 with fig_col2:
+  # Plot the quantity over time
   fig1 = px.line(item_track, x='Date Time', y='Quantity', title='Quantity of: ' + items_filter)
   st.write(fig1, key='fig1')
+
 
 
 
