@@ -29,7 +29,7 @@ sort_table = pd.read_csv(
 print(sort_table)
 st.dataframe(sort_table)
 # Select Box to filter a item
-items_filter = st.selectbox("Select the Item", sort_table.loc[1] )
+items_filter = st.selectbox("Select the Item", sort_table["Item"].unique().tolist() )
 
 
 # Chart for Item
