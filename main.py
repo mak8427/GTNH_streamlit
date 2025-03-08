@@ -27,6 +27,7 @@ sort_table = pd.read_csv(
   on_bad_lines='warn'  # Warns about bad lines but doesn't crash
 )
 sort_table['Date Time'] = pd.to_datetime(sort_table['Date Time'])
+sort_table.sort_values('Quantity', inplace=True)
 print(sort_table)
 st.dataframe(sort_table)
 # Select Box to filter a item
