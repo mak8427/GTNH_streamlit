@@ -40,10 +40,10 @@ with fig_col1:
   st.markdown("#### Past 24-hour metrics")
 
   item_track = sort_table.loc[sort_table['Item'] == items_filter]
-  item_track['datetime'] = pd.to_datetime(item_track["datetime"])
+  item_track['Date Time"'] = pd.to_datetime(item_track["Date Time"])
   now = pd.Timestamp.now(tz="America/Sao_Paulo")
   now = now.tz_localize(None)
-  last_24h = item_track[item_track["datetime"] >= now - pd.Timedelta(days=1)]
+  last_24h = item_track[item_track["Date Time"] >= now - pd.Timedelta(days=1)]
 
   if len(last_24h) <= 1:
     kpi_avg = 0
