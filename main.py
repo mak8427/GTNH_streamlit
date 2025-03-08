@@ -67,13 +67,5 @@ with fig_col2:
   st.write(fig1, key='fig1')
 
 
-# Expander with all items
-with st.expander("All items:"):
-  for col in distinct_items:
-    temp_df = sort_table.loc[sort_table['item'] == col]
-    
-    fig = px.line(temp_df, x='datetime', y='quantity', title='Quantity of: ' + col)
-    
-    st.write(fig)
 
 
