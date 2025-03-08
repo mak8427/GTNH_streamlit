@@ -45,7 +45,6 @@ with fig_col1:
   item_track = sort_table.loc[sort_table['Item'] == items_filter]
   item_track['Date Time"'] = pd.to_datetime(item_track["Date Time"])
   now = pd.Timestamp.now(tz="Europe/Rome")
-  now = now.tz_localize(None)
   last_24h = item_track[item_track["Date Time"] >= now - pd.Timedelta(days=1)]
 
   if len(last_24h) <= 1:
