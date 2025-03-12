@@ -36,7 +36,7 @@ st.markdown("#### Last Update: " + str(last_date))
 
 f = open("Aggregator2.txt", "r")
 old_date = f.read()
-datetime_object = datetime.strptime(old_date, '%y-%m-%d %H:%M:%S')
+datetime_object = datetime.datetime.strptime(old_date, '%y-%m-%d %H:%M:%S')
 
 if(last_date - datetime_object >  pd.Timedelta(days=1) ):
     st.markdown("#### " + "Trigger")
