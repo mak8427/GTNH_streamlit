@@ -29,7 +29,7 @@ sort_table['Date Time'] = pd.to_datetime(sort_table['Date Time'])
 last_date = sort_table["Date Time"][len(sort_table)-1]
 
 
-st.markdown("#### Last Update: " + last_date)
+st.markdown("#### Last Update: " + str(last_date))
 
 
 
