@@ -33,7 +33,7 @@ f = open("Aggregator.txt", "r")
 st.write(f.read())
 
 f = open("Aggregator.txt", "a")
-f.write(f"{sort_table[len(sort_table)-1]}\n")
+f.write(f"{sort_table["Date Time"][len(sort_table)-1]}\n")
 f.close()
 
 
