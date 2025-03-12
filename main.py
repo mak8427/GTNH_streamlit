@@ -26,11 +26,18 @@ sort_table = pd.read_csv(
   on_bad_lines='warn'  # Warns about bad lines but doesn't crash
 )
 sort_table['Date Time'] = pd.to_datetime(sort_table['Date Time'])
+last_date = sort_table["Date Time"][len(sort_table)-1]
+
+
+st.markdown("#### " + last_date)
+
 
 
 
 f = open("Aggregator2.txt", "r")
-st.markdown("#### " + f.read())
+old_date = f.read()
+datetime_object = datetime.strptime(old_date, '%y-%m-%d %H:%M:%S')
+st.markdown("#### datetime_object:" + datetime_object)
 
 
 f = open("Aggregator2.txt", "w")
