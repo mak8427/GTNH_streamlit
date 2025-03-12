@@ -30,7 +30,7 @@ sort_table['Date Time'] = pd.to_datetime(sort_table['Date Time'])
 
 
 f = open("Aggregator2.txt", "r")
-st.write(f.read())
+st.markdown("#### " + f.read())
 
 
 f = open("Aggregator2.txt", "w")
