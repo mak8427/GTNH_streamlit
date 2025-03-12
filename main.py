@@ -29,7 +29,7 @@ sort_table['Date Time'] = pd.to_datetime(sort_table['Date Time'])
 last_date = sort_table["Date Time"][len(sort_table)-1]
 
 
-st.markdown("#### " + last_date)
+st.markdown("#### Last Update: " + last_date)
 
 
 
@@ -37,12 +37,12 @@ st.markdown("#### " + last_date)
 f = open("Aggregator2.txt", "r")
 old_date = f.read()
 datetime_object = datetime.strptime(old_date, '%y-%m-%d %H:%M:%S')
-st.markdown("#### datetime_object:" + datetime_object)
 
-
-f = open("Aggregator2.txt", "w")
-f.write(f"{sort_table["Date Time"][len(sort_table)-1]}\n")
-f.close()
+if(last_date - datetime_object >  pd.Timedelta(days=1) ):
+    st.markdown("#### " + "Trigger")
+    f = open("Aggregator2.txt", "w")
+    f.write(f"{sort_table["Date Time"][len(sort_table)-1]}\n")
+    f.close()
 
 
 sort_table.sort_values('Quantity', inplace=True, ascending=False)
