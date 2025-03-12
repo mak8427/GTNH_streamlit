@@ -1,4 +1,5 @@
 
+
 import streamlit as st
 from streamlit_autorefresh import st_autorefresh
 from st_supabase_connection import SupabaseConnection, execute_query
@@ -20,7 +21,6 @@ st.title("GTNH - Applied Energistics Items Track")
 st_autorefresh(interval=300000, key="refresh_page")
 
 # Supabase Table
-supabase_table = "gtnh-items"
 
 sort_table = pd.read_csv(
   "/mnt/sdb/gtnh_ger/World/opencomputers/f93bf4e7-03b1-41e8-893e-d9033d3f97a9/home/GTNH_Lua_Applied/Export.csv",
@@ -28,8 +28,6 @@ sort_table = pd.read_csv(
 )
 sort_table['Date Time'] = pd.to_datetime(sort_table['Date Time'])
 sort_table.sort_values('Quantity', inplace=True, ascending=False)
-print(sort_table)
-st.dataframe(sort_table)
 # Select Box to filter a item
 items_filter = st.selectbox("Select the Item", sort_table["Item"].unique().tolist() )
 
