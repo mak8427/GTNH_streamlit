@@ -40,10 +40,10 @@ old_date =old_date.replace("\n","")
 st.write(old_date)
 datetime_object = datetime.datetime.strptime(old_date, '%Y-%m-%d %H:%M:%S')
 
-if(last_date - datetime_object >  pd.Timedelta(days=1) ):
+if(last_date - datetime_object >  pd.Timedelta(minutes=10) ):
     st.markdown("#### " + "Trigger")
     f = open("Aggregator2.txt", "w")
-    f.write(f"{sort_table["Date Time"][len(sort_table)-1]}")
+    #f.write(f"{sort_table["Date Time"][len(sort_table)-1]}")
     f.close()
 
 
