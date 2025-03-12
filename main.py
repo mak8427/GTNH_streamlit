@@ -29,11 +29,11 @@ sort_table['Date Time'] = pd.to_datetime(sort_table['Date Time'])
 
 
 
-f = open("Aggregator.txt", "r")
-st.write(f.read())
+#f = open("Aggregator.txt", "r")
+#st.write(f.read())
 
 
-f = open("Aggregator.txt", "w")
+f = open("Aggregator2.txt", "w")
 f.write(f"{sort_table["Date Time"][len(sort_table)-1]}\n")
 f.close()
 
