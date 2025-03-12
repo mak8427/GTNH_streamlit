@@ -1,5 +1,5 @@
 
-
+import os
 import streamlit as st
 from streamlit_autorefresh import st_autorefresh
 from st_supabase_connection import SupabaseConnection, execute_query
@@ -20,23 +20,23 @@ st.title("GTNH - Applied Energistics Items Track")
 # Refresh the page every 5 minutes (300,000 milliseconds)
 st_autorefresh(interval=300000, key="refresh_page")
 
-# Supabase Table
-st.title('Counter Example')
-if 'count' not in st.session_state:
-  st.session_state.count = 0
-
-increment = st.button('Increment')
-if increment:
-  st.session_state.count += 1
-
-st.write('Count = ', st.session_state.count)
-
 
 sort_table = pd.read_csv(
   "/mnt/sdb/gtnh_ger/World/opencomputers/f93bf4e7-03b1-41e8-893e-d9033d3f97a9/home/GTNH_Lua_Applied/Export.csv",
   on_bad_lines='warn'  # Warns about bad lines but doesn't crash
 )
 sort_table['Date Time'] = pd.to_datetime(sort_table['Date Time'])
+
+
+
+f = open("Aggregator.txt", "r")
+st.write(f.read())
+
+f = open("Aggregator.txt", "a")
+f.write(f"{sort_table[len(sort_table)-1]}\n")
+f.close()
+
+
 sort_table.sort_values('Quantity', inplace=True, ascending=False)
 # Select Box to filter a item
 items_filter = st.selectbox("Select the Item", sort_table["Item"].unique().tolist() )
