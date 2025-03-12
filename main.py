@@ -22,6 +22,12 @@ st_autorefresh(interval=300000, key="refresh_page")
 
 # Supabase Table
 
+st.session_state.count = 0
+if st.button("Refresh"):
+  st.session_state.count +=1
+st.write(f"Current count: {st.session_state.count}")
+
+
 sort_table = pd.read_csv(
   "/mnt/sdb/gtnh_ger/World/opencomputers/f93bf4e7-03b1-41e8-893e-d9033d3f97a9/home/GTNH_Lua_Applied/Export.csv",
   on_bad_lines='warn'  # Warns about bad lines but doesn't crash
@@ -30,6 +36,7 @@ sort_table['Date Time'] = pd.to_datetime(sort_table['Date Time'])
 sort_table.sort_values('Quantity', inplace=True, ascending=False)
 # Select Box to filter a item
 items_filter = st.selectbox("Select the Item", sort_table["Item"].unique().tolist() )
+
 
 
 
@@ -68,6 +75,7 @@ with fig_col2:
   # Plot the quantity over time
   fig1 = px.line(item_track, x='Date Time', y='Quantity', title='Quantity of: ' + items_filter)
   st.write(fig1, key='fig1')
+
 
 
 
