@@ -21,11 +21,15 @@ st.title("GTNH - Applied Energistics Items Track")
 st_autorefresh(interval=300000, key="refresh_page")
 
 # Supabase Table
+st.title('Counter Example')
+if 'count' not in st.session_state:
+  st.session_state.count = 0
 
-st.session_state.count = 0
-if st.button("Refresh"):
-  st.session_state.count +=1
-st.write(f"Current count: {st.session_state.count}")
+increment = st.button('Increment')
+if increment:
+  st.session_state.count += 1
+
+st.write('Count = ', st.session_state.count)
 
 
 sort_table = pd.read_csv(
