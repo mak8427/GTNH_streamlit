@@ -36,7 +36,6 @@ st.markdown("#### Last Update: " + str(last_date))
 f = open("Aggregator2.txt", "r")
 old_date = f.read()
 old_date =old_date.replace("\n","")
-st.write(old_date)
 datetime_object = datetime.datetime.strptime(old_date, '%Y-%m-%d %H:%M:%S')
 
 #if(last_date - datetime_object >  pd.Timedelta(minutes=1) ):
