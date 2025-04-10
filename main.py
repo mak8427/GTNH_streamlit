@@ -88,8 +88,7 @@ with fig_col2:
   fig1 = px.line(item_track, x='Date Time', y='Quantity', title='Quantity of: ' + items_filter)
   st.write(fig1, key='fig1')
 
-
-
-
-
+# Job requests
+df_active_monitors = pd.read_csv("/mnt/sdb/gtnh_ger/World/opencomputers/4e8b472b-5489-4ef0-a4d5-0107b13893b3/home/GTNH_Lua_Applied/active_monitors.csv")
+st.dataframe(df_active_monitors)
 
