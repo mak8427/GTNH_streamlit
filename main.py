@@ -2,7 +2,6 @@
 import os
 import streamlit as st
 from streamlit_autorefresh import st_autorefresh
-from st_supabase_connection import SupabaseConnection, execute_query
 import plotly.express as px
 import pandas as pd
 import datetime
@@ -14,16 +13,28 @@ st.set_page_config(
   page_title = 'GTNH - Items Tracker',
   layout='wide'
 )
-
-st.title("GTNH - Applied Energistics Items Track")
-
 # Refresh the page every 5 minutes (300,000 milliseconds)
 st_autorefresh(interval=300000, key="refresh_page")
+
+st.title("GTNH - Applied Energistics Items Tracker and Job Scheduler")
+
+
+# Job requests
+df_active_monitors = pd.read_csv("/mnt/sdb/gtnh_ger/World/opencomputers/4e8b472b-5489-4ef0-a4d5-0107b13893b3/home/GTNH_Lua_Applied/active_monitors.csv")
+df_active_monitors = df_active_monitors[['Label','ElapsedSeconds','Produced','Remaining']]
+df_active_monitors.sort_values('ElapsedSeconds',inplace=True)
+st.dataframe(df_active_monitors)
+
+
+
+
 
 
 sort_table = pd.read_csv(
   "/mnt/sdb/gtnh_ger/World/opencomputers/f93bf4e7-03b1-41e8-893e-d9033d3f97a9/home/GTNH_Lua_Applied/Export.csv",
-  on_bad_lines='warn'  # Warns about bad lines but doesn't crash
+  on_bad_lines='warn',
+  engine="python"
+  # Warns about bad lines but doesn't crash
 )
 sort_table['Date Time'] = pd.to_datetime(sort_table['Date Time'])
 last_date = sort_table["Date Time"][len(sort_table)-1]
@@ -88,8 +99,4 @@ with fig_col2:
   fig1 = px.line(item_track, x='Date Time', y='Quantity', title='Quantity of: ' + items_filter)
   st.write(fig1, key='fig1')
 
-# Job requests
-df_active_monitors = pd.read_csv("/mnt/sdb/gtnh_ger/World/opencomputers/4e8b472b-5489-4ef0-a4d5-0107b13893b3/home/GTNH_Lua_Applied/active_monitors.csv")
-df_active_monitors = df_active_monitors[['Label','ElapsedSeconds','Remaining']]
-st.dataframe(df_active_monitors)
 
