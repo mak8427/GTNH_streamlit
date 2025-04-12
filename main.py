@@ -29,9 +29,9 @@ st.dataframe(df_active_monitors)
 
 
 @st.cache_data
-def load_data():
+def load_data(csv_file):
   sort_table = pd.read_csv(
-    "/mnt/sdb/gtnh_ger/World/opencomputers/f93bf4e7-03b1-41e8-893e-d9033d3f97a9/home/GTNH_Lua_Applied/Export.csv",
+    csv_file,
     on_bad_lines='warn',
     engine="pyarrow",
     # Warns about bad lines but doesn't crash
@@ -41,7 +41,7 @@ def load_data():
 
 
 
-sort_table = load_data()
+sort_table = load_data("/mnt/sdb/gtnh_ger/World/opencomputers/f93bf4e7-03b1-41e8-893e-d9033d3f97a9/home/GTNH_Lua_Applied/Export.csv")
 sort_table['Date Time'] = pd.to_datetime(sort_table['Date Time'])
 last_date = sort_table["Date Time"][len(sort_table)-1]
 
