@@ -29,7 +29,7 @@ st_autorefresh(interval=300000, key="refresh_page")
 
 st.title("GTNH - Applied Energistics Items Tracker and Job Scheduler")
 
-column_1, column_2 = st.columns([0.5, 0.5])
+column_1, column_2 = st.columns([0.4, 0.5])
 # Job requests
 with column_1:
   st.markdown("## Curent job list")
