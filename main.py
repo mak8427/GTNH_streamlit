@@ -40,7 +40,7 @@ with column_1:
 with column_2:
   st.markdown("## History of jobs")
   df_history =load_data("/mnt/sdb/gtnh_ger/World/opencomputers/4e8b472b-5489-4ef0-a4d5-0107b13893b3/home/GTNH_Lua_Applied/crafting_history.csv")
-  df_history = df_history[['Label','ElapsedSeconds','Produced','Remaining']]
+  df_history = df_history[['Label',"EndTime",'DurationSeconds','TotalRequested','Produced',"TimeoutTriggered"]]
   st.dataframe(df_history)
 
 
