@@ -33,11 +33,13 @@ st.title("GTNH - Applied Energistics Items Tracker and Job Scheduler")
 column_1, column_2 = st.columns([0.5, 0.5])
 # Job requests
 with column_1:
+  st.markdown("## Curent job list")
   df_active_monitors = load_data("/mnt/sdb/gtnh_ger/World/opencomputers/4e8b472b-5489-pd4ef0-a4d5-0107b13893b3/home/GTNH_Lua_Applied/active_monitors.csv")
   df_active_monitors = df_active_monitors[['Label','ElapsedSeconds','Produced','Remaining']]
   df_active_monitors.sort_values('ElapsedSeconds',inplace=True, ascending=False)
   st.dataframe(df_active_monitors)
 with column_2:
+  st.markdown("## History of jobs")
   df_history =load_data("/mnt/sdb/gtnh_ger/World/opencomputers/4e8b472b-5489-pd4ef0-a4d5-0107b13893b3/home/GTNH_Lua_Applied/crafting_history")
   df_history = df_active_monitors[['Label','ElapsedSeconds','Produced','Remaining']]
   df_history.sort_values('ElapsedSeconds',inplace=True, ascending=False)
