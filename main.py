@@ -9,6 +9,17 @@ import polars as pl
 import time
 import pytz
 
+@st.cache_data
+def load_data(csv_file):
+  df = pd.read_csv(
+    csv_file,
+    on_bad_lines='warn',
+    engine="pyarrow",
+    # Warns about bad lines but doesn't crash
+  )
+  return df
+
+
 
 st.set_page_config(
   page_title = 'GTNH - Items Tracker',
@@ -19,26 +30,18 @@ st_autorefresh(interval=300000, key="refresh_page")
 
 st.title("GTNH - Applied Energistics Items Tracker and Job Scheduler")
 
-
+column_1, column_2 = st.columns([0.5, 0.5])
 # Job requests
-df_active_monitors = pd.read_csv("/mnt/sdb/gtnh_ger/World/opencomputers/4e8b472b-5489-4ef0-a4d5-0107b13893b3/home/GTNH_Lua_Applied/active_monitors.csv")
-df_active_monitors = df_active_monitors[['Label','ElapsedSeconds','Produced','Remaining']]
-df_active_monitors.sort_values('ElapsedSeconds',inplace=True)
-st.dataframe(df_active_monitors)
-
-
-
-@st.cache_data
-def load_data(csv_file):
-  sort_table = pd.read_csv(
-    csv_file,
-    on_bad_lines='warn',
-    engine="pyarrow",
-    # Warns about bad lines but doesn't crash
-  )
-  return sort_table
-
-
+with column_1:
+  df_active_monitors = load_data("/mnt/sdb/gtnh_ger/World/opencomputers/4e8b472b-5489-pd4ef0-a4d5-0107b13893b3/home/GTNH_Lua_Applied/active_monitors.csv")
+  df_active_monitors = df_active_monitors[['Label','ElapsedSeconds','Produced','Remaining']]
+  df_active_monitors.sort_values('ElapsedSeconds',inplace=True, ascending=False)
+  st.dataframe(df_active_monitors)
+with column_2:
+  df_history =load_data("/mnt/sdb/gtnh_ger/World/opencomputers/4e8b472b-5489-pd4ef0-a4d5-0107b13893b3/home/GTNH_Lua_Applied/crafting_history")
+  df_history = df_active_monitors[['Label','ElapsedSeconds','Produced','Remaining']]
+  df_history.sort_values('ElapsedSeconds',inplace=True, ascending=False)
+  st.dataframe(df_history)
 
 
 sort_table = load_data("/mnt/sdb/gtnh_ger/World/opencomputers/f93bf4e7-03b1-41e8-893e-d9033d3f97a9/home/GTNH_Lua_Applied/Export.csv")
@@ -55,19 +58,10 @@ old_date = f.read()
 old_date =old_date.replace("\n","")
 datetime_object = datetime.datetime.strptime(old_date, '%Y-%m-%d %H:%M:%S')
 
-#if(last_date - datetime_object >  pd.Timedelta(minutes=1) ):
-    #st.markdown("#### " + "Trigger")
-    #f = open("Aggregator2.txt", "w")
-    #f.write(f"{sort_table["Date Time"][len(sort_table)-1]}")
-    #f.close()
-
 
 sort_table.sort_values('Quantity', inplace=True, ascending=False)
 # Select Box to filter a item
 items_filter = st.selectbox("Select the Item", sort_table["Item"].unique().tolist() )
-
-
-
 
 # Chart for Item
 fig_col1, fig_col2 = st.columns([0.2, 0.8])
@@ -104,5 +98,6 @@ with fig_col2:
   # Plot the quantity over time
   fig1 = px.line(item_track, x='Date Time', y='Quantity', title='Quantity of: ' + items_filter)
   st.write(fig1, key='fig1')
+
 
 
