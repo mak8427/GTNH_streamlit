@@ -9,7 +9,6 @@ import polars as pl
 import time
 import pytz
 
-@st.cache_data
 def load_data(csv_file):
   df = pd.read_csv(
     csv_file,
