@@ -90,6 +90,6 @@ with fig_col2:
 
 # Job requests
 df_active_monitors = pd.read_csv("/mnt/sdb/gtnh_ger/World/opencomputers/4e8b472b-5489-4ef0-a4d5-0107b13893b3/home/GTNH_Lua_Applied/active_monitors.csv")
-df_active_monitors = [['Label','ElapsedSeconds','Remaining']]
+df_active_monitors = df_active_monitors[['Label','ElapsedSeconds','Remaining']]
 st.dataframe(df_active_monitors)
 
